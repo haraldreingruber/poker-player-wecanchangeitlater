@@ -2,7 +2,7 @@ const GameState = require('./src/GameState');
 
 class Player {
   static get VERSION() {
-    return '0.3';
+    return '0.4';
   }
 
   static betRequest(gameState, bet) {
@@ -19,11 +19,11 @@ class Player {
     }
 
     // If it has been raised by more than 20€ we fold
-    if(gameState.toCall() > 20) {
+    if(game.toCall() > 20) {
       bet(0);
       return;
     }
-    bet(gameState.toCall());
+    bet(game.toCall());
   }
 
   static showdown(gameState) {
