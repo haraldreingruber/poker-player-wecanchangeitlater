@@ -2,27 +2,28 @@ const GameState = require('./src/GameState');
 
 class Player {
   static get VERSION() {
-    return '0.2';
+    return '0.3';
   }
 
   static betRequest(gameState, bet) {
     var game = new GameState(gameState);
 
-    if(game.me().score() >= 10) {
+    if(game.me().score() > 12) {
       bet(game.me().stack());
       return;
     }
 
-   /* if(game.me().hasPocketPair()) {
-      bet(game.me().stack());
+    if(game.me().score() > 9) {
+      bet(game.toRaise());
       return;
     }
-    var hasAce = game.me().holeCards()[0].rank() === 'A' || game.me().holeCards()[1].rank() === 'A';
-    if(hasAce) {
-      bet(10);
+
+    // If it has been raised by more than 20€ we fold
+    if(gameState.toCall() > 20) {
+      bet(0);
       return;
-    }*/
-    bet(0);
+    }
+    bet(gameState.toCall());
   }
 
   static showdown(gameState) {
