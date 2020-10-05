@@ -2,12 +2,18 @@ const GameState = require('./src/GameState');
 
 class Player {
   static get VERSION() {
-    return '0.1';
+    return '0.2';
   }
 
   static betRequest(gameState, bet) {
     var game = new GameState(gameState);
-    if(game.me().hasPocketPair()) {
+
+    if(game.me().score() >= 10) {
+      bet(game.me().stack());
+      return;
+    }
+
+   /* if(game.me().hasPocketPair()) {
       bet(game.me().stack());
       return;
     }
@@ -15,7 +21,7 @@ class Player {
     if(hasAce) {
       bet(10);
       return;
-    }
+    }*/
     bet(0);
   }
 
