@@ -7,7 +7,12 @@ class Player {
 
   static betRequest(gameState, bet) {
     var game = new GameState(gameState);
-    bet(1);
+    if(game.me().hasPocketPair()) {
+      bet(game.me().stack());
+    }
+    else {
+      bet(0);
+    }
   }
 
   static showdown(gameState) {
