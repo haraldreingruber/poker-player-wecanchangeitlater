@@ -9,10 +9,14 @@ class Player {
     var game = new GameState(gameState);
     if(game.me().hasPocketPair()) {
       bet(game.me().stack());
+      return;
     }
-    else {
-      bet(0);
+    var hasAce = game.me().holeCards()[0].rank() === 'A' || game.me().holeCards()[1].rank() === 'A';
+    if(hasAce) {
+      bet(10);
+      return;
     }
+    bet(0);
   }
 
   static showdown(gameState) {
